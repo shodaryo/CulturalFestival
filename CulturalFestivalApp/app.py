@@ -1,6 +1,10 @@
 import streamlit as st
 import time
 from PIL import Image, ImageDraw
+import os
+
+# 現在のファイル（app.py）と同じ場所からの相対パスを構築
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
 def inject_fadein_css():
     st.markdown("""
@@ -58,7 +62,8 @@ def inject_zoom_css():
 
 import base64
 def set_main_background():
-    image_path="images/main_page.jpg"
+    # image_path="images/main_page.jpg"
+    image_path = os.path.join(current_dir, "images", "main_page.jpg")
     with open(image_path, "rb") as image_file:
         encoded = base64.b64encode(image_file.read()).decode()
 
