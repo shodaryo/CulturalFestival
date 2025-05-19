@@ -62,8 +62,8 @@ def inject_zoom_css():
 
 import base64
 def set_main_background():
-    # image_path="images/main_page.jpg"
-    image_path = os.path.join(current_dir, "images", "main_page.jpg")
+    image_path="images/main_page.jpg"
+    image_path = os.path.join(current_dir, image_path)
     with open(image_path, "rb") as image_file:
         encoded = base64.b64encode(image_file.read()).decode()
 
@@ -198,6 +198,7 @@ def map_page():
     search_term = st.text_input("クラス名や部屋名を検索（例：トイレ、3年1組など）")
 
     image_path = "images/kousya.jpg"
+    image_path = os.path.join(current_dir, image_path)
     base_image = Image.open(image_path).convert("RGBA")
     overlay = Image.new("RGBA", base_image.size, (255, 0, 0, 0))
     draw = ImageDraw.Draw(overlay)
@@ -273,6 +274,7 @@ def class_detail_page():
     st.title("🎪 クラス企画詳細")
     class_name = st.session_state.get("selected_class", "不明なクラス")
     title, desc, detail, image_path = class_project.get(class_name, ["不明", "情報が見つかりませんでした。", "", None])
+    image_path = os.path.join(current_dir, image_path)
     st.subheader(f"{class_name}：{title}")
     st.write(desc)
     st.markdown("---")
@@ -313,6 +315,7 @@ def event_detail_page():
     st.title("🎭 イベント詳細")
     name = st.session_state.get("selected_event", "不明なイベント")
     event_day, time_place, _, detail, image_path = event_project.get(name, ["日程不明", "時間不明", "", "詳細情報はありません。", None])
+    image_path = os.path.join(current_dir, image_path)
     st.subheader(name)
     st.write(f"🗓 {event_day}　🕒 {time_place}")
     st.markdown("---")
