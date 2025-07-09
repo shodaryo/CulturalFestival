@@ -358,7 +358,7 @@ def sidebar():
     if st.sidebar.button("来場メッセージ"):
         st.session_state.page = "message"
         st.rerun()
-    if st.sidebar.button("校内マップ"):
+    if st.sidebar.button("校内MAP"):
         st.session_state.page = "map"
         st.rerun()
     if st.sidebar.button("クラス企画一覧"):
