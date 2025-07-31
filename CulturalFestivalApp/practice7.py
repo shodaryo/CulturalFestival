@@ -1,20 +1,102 @@
-# クラス一覧検索機能
+# css
 
 #import
 import streamlit as st
 import time # 3 追加
 import os # 4 追加
+from PIL import Image, ImageDraw # 6 追加
 
 # 4 現在のファイル（app.py）のパスを構築
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # 7 後でinject_fadein_css()（フェードインのcss）
+def inject_fadein_css():
+    st.markdown("""
+        <style>
+        .fadein {
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
 # 7 後でinject_fadeout_css()（フェードアウトのcss）
+def inject_fadeout_css():
+    st.markdown("""
+        <style>
+        .fadeout {
+            opacity: 1;
+            animation: fadeOut 2s ease-in-out forwards;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
 # 7 後でinject_zoom_css()（ズームインのcss）
+def inject_zoom_css():
+    st.markdown("""
+        <style>
+        /* ボタン全体をズームイン */
+        div.stButton {
+            animation: zoomIn 0.6s ease forwards;
+            transform: scale(0.8);
+        }
+
+        @keyframes zoomIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
 # 7 後でset_main_background()（背景画像をフェードイン、フェードアウトする関数）
+import base64
+def set_main_background():
+    image_path="images/メイン画像.png"
+    image_path = os.path.join(current_dir, image_path)
+    with open(image_path, "rb") as image_file:
+        encoded = base64.b64encode(image_file.read()).decode()
+
+    st.markdown(
+        f"""
+        <style>
+        @keyframes fadeIn {{
+            from {{ opacity: 0; }}
+            to {{ opacity: 1; }}
+        }}
+        @keyframes fadeOut {{
+            from {{ opacity: 1; }}
+            to {{ opacity: 0; }}
+        }}
+
+        .stApp {{
+            background-image: url("data:image/jpg;base64,{encoded}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            animation: fadeIn 2s ease-in-out forwards, fadeOut 2s ease-in-out 3s forwards;
+
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 # 3 後でログイン認証用のuserデータ
 users = {"user1": "pass1", "user2": "pass2"}
@@ -34,9 +116,10 @@ class_project = {
 }
 
 # 5 後でイベント企画のevent_projectデータ
+# イベント企画情報（企画名: [日程, 時間場所, 概要, 詳細]）
 event_project = {
-    "あああ":["", "","", ""],
-    "あああ":["", "","", ""],
+    "ステージ発表": ["1日目", "10:00〜 体育館", "生徒会によるバンド演奏など", "迫力のバンドパフォーマンスやダンスが披露されるステージイベントです。", "images/event_stage.jpg"],
+    "ダンス発表": ["1日目", "11:00〜 中庭", "ダンス部によるパフォーマンス", "多彩なジャンルのダンスを披露！息の合った動きに注目。", "images/event_dance.jpg"],
     "演劇": ["2日目", "13:00〜 多目的室", "演劇部によるオリジナル劇", "感動的なストーリーで観客を魅了する演劇部渾身の舞台。", "images/event_show.jpg"],
     "英語スピーチ": ["2日目", "14:00〜 視聴覚室", "英語スピーチコンテスト", "生徒による英語スピーチの発表会です。優秀作品の表彰もあります。", "images/event_english.jpg"],
     "合唱コンクール": ["3日目", "09:30〜 音楽室", "全クラス参加の合唱コンテスト", "クラスごとの合唱発表。審査員による講評と表彰式も行われます。", "images/event_music.jpg"],
@@ -68,8 +151,9 @@ def login():
 # メイン画面
 def main_page():
     # 7 後で文字または画像のフェードイン、フェードアウトに変更
-    st.title("🌟 文化祭アプリ！")
-    st.write("画面左のメニューから、各機能に移動できます。")
+    # st.title("🌟 文化祭アプリ！")
+    # st.write("画面左のメニューから、各機能に移動できます。")
+    set_main_background()
 
     # 3 後で自動での画面遷移
     time.sleep(5)
@@ -80,6 +164,7 @@ def main_page():
 # メニュー画面
 def menu_page():
     # 7 あとでズームイン処理のcss（inject_zoom_css()）+ボタン表示にラグを追加（time.sleep(0.5)）
+    inject_zoom_css()
     
     st.header("📋 メニュー")
     st.write("文化祭に関する各ページに移動できます。")    
@@ -115,16 +200,64 @@ def map_page():
 
     # 6 後で表示カテゴリのセレクトボックスcategory
     # 6 後で部屋名の検索ボックスsearch_term
+    category = st.selectbox("表示カテゴリ", ["選択してください","すべて", "クラス", "特別教室"], index=0)
+    search_term = st.text_input("クラス名や部屋名を検索（例：トイレ、3年1組など）")
 
     # 6 後でオーバーレイ画像の作成
-    st.image("images/map.png", use_column_width=True)
+    image_path = "images/kousya.jpg"
+    image_path = os.path.join(current_dir, image_path)
+    base_image = Image.open(image_path).convert("RGBA")
+    overlay = Image.new("RGBA", base_image.size, (255, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+
+    room_locations = {
+        "クラス": {
+            "1年1組": [(945, 600, 1025, 670)],
+            "1年2組": [(865, 600, 945, 670)],
+            "3年1組": [(160, 220, 220, 260)],
+        },
+        "特別教室": {
+            "図書室": [(600, 60, 680, 100)],
+            "音楽室": [(960, 60, 1050, 100)],
+            "図工室": [(480, 230, 560, 270)],
+            "家庭科室": [(560, 230, 640, 270)],
+            "理科室": [(800, 230, 880, 270)],
+            "トイレ": [
+                (20, 30, 80, 70), (880, 30, 940, 70),
+                (20, 230, 80, 270), (880, 230, 940, 270),
+                (20, 430, 80, 470)
+            ],
+        }
+    }
+
+    highlighted = []
+    for cat, rooms in room_locations.items():
+        if category == "すべて" or category == cat:
+            for room, boxes in rooms.items():
+                if search_term in room:
+                    highlighted.append((room, boxes))
+
+    for room, boxes in highlighted:
+        for box in boxes:
+            draw.rectangle(box, fill=(255, 0, 0, 100))
+
+    combined = Image.alpha_composite(base_image, overlay)
+    st.image(combined, use_container_width=True)
+
     st.write("地図上の場所を参考にして、各クラスの企画紹介ページへ移動できます。")
 
     # 6 後で検索条件に応じて、表示するボタンを変える
-    if st.button("1年A組の企画を見る"):
-        st.write('1-Aの企画')
-    if st.button("1年B組の企画を見る"):
-        st.write('1-Bの企画')
+    for room, _ in highlighted:
+        if room in class_project:
+            title, desc, _, _ = class_project[room]
+            st.subheader(f"{room}：{title}")
+            st.write(desc)
+            if st.button(f"{room} の企画を見る", key=f"map_{room}"):
+                st.session_state.selected_class = room
+                st.session_state.page = "class_detail"
+                st.session_state.map = True
+                st.rerun()
+            st.write("---------------------")
 
 
 # クラス企画一覧
@@ -177,6 +310,16 @@ def event_list_page():
     search = st.text_input("イベント名で検索")
 
     # 5 後で検索結果に応じたデータを表示する処理を記載
+    for name, (event_day, time_place, summary, _, _) in event_project.items():
+        if (day == "すべて" or event_day == day) and (search in name):
+            st.subheader(name)
+            st.write(f"🗓 {event_day}　🕒 {time_place}")
+            st.write(summary)
+            if st.button(f"{name} の詳細を見る", key=f"event_{name}"):
+                st.session_state.selected_event = name
+                st.session_state.page = "event_detail"
+                st.rerun()
+            st.write("---------------------")
 
 
 
@@ -185,7 +328,20 @@ def event_detail_page():
     st.title("🎭 イベント詳細")
     
     # 5 後で企画一覧ページで選んだ企画の詳細を表示
-    
+    name = st.session_state.get("selected_event", "不明なイベント")
+    event_day, time_place, _, detail, image_path = event_project.get(name, ["日程不明", "時間不明", "", "詳細情報はありません。", None])
+    image_path = os.path.join(current_dir, image_path)
+    st.subheader(name)
+    st.write(f"🗓 {event_day}　🕒 {time_place}")
+    st.markdown("---")
+    st.write(detail)
+
+    if image_path:
+        st.image(image_path, caption=f"{name} の様子", use_container_width=True)
+
+    if st.button("← イベント一覧に戻る"):
+        st.session_state.page = "event_list"
+        st.rerun()
 
 
 # クラス投票結果ページ

@@ -13,6 +13,20 @@ st.subheader('SubHeader')
 st.text('Text')
 st.markdown('Markdown')
 
+st.markdown("""
+        <style>
+        .fadein {
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        </style>
+    """, unsafe_allow_html=True)
+st.markdown('<h1 class="fadein fadeout">🌟 ようこそ、武陽祭へ！</h1>', unsafe_allow_html=True)
 
 st.write(['one', 'two', 'three'])
 
@@ -46,14 +60,23 @@ text_two = st.text_area('Input area title', placeholder='write here.')
 st.write(text_one)
 st.write(text_two)
 
+password = st.text_input("パスワード", type="password")
+if password == "pass1":
+    st.write("ログインしました")
 
 
-side_options = ['menu', 'message', 'map', 'event']
+
+side_options = ['menu', 'map', 'event']
 menu = st.sidebar.selectbox('メニュー', side_options)
+if st.sidebar.button("classのボタン"):
+     menu = 'class'
 
 if menu == 'menu':
     st.write('メニュー画面を表示します')
-elif menu == 'message':
+elif menu == 'class':
     st.write('メッセージ画面を表示します')
 else:
     st.write('エラー')
+
+
+st.image("images/map.png", use_container_width=True)
