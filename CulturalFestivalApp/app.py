@@ -1,4 +1,4 @@
-# css
+# 仕様変更
 
 #import
 import streamlit as st
