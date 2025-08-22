@@ -1,4 +1,8 @@
-# 仕様変更
+# 9 ログイン機能、投票機能の削除
+
+# 9 ログイン機能は、ログイン判定をせずにボタンを押したら画面遷移させる（１）
+# 9 ログイン画面を表示せずに、最初からメイン画面に画面遷移させる（２）
+# 9 投票機能は、メニュー画面とメニューバーから、遷移させるボタンをなくして表示させないようにする（３）
 
 #import
 import streamlit as st
@@ -105,9 +109,9 @@ users = {"user1": "pass1", "user2": "pass2"}
 # 8 クラス企画の最後にカテゴリーを追加
 # クラス企画情報（クラス名：企画名, 概要, 詳細, 画像, カテゴリー）
 class_project = {
-    "1年1組": ["お化け屋敷", "お化け屋敷！ドキドキの体験をお楽しみください。", "暗い教室の中で、本格的な演出と仕掛けが満載のお化け屋敷を体験できます。", "images/class_1_1.jpg", "遊ぶ"],
-    "1年2組": ["カフェ", "カフェ☕️でゆったりと休憩しませんか？", "手作りスイーツとドリンクを提供する、落ち着いた空間のカフェです。", "images/class_1_2.jpg", "食べる"],
-    "3年1組": ["縁日屋台", "縁日風屋台！射的やヨーヨー釣りもあります。", "日本の伝統的な縁日を再現した屋台で、楽しいゲームや景品が盛りだくさん。", "images/class_3_1.jpg", "遊ぶ"],
+    "1-1": ["お化け屋敷", "お化け屋敷！ドキドキの体験をお楽しみください。", "暗い教室の中で、本格的な演出と仕掛けが満載のお化け屋敷を体験できます。", "images/class_1_1.jpg", "遊ぶ"],
+    "1-2": ["カフェ", "カフェ☕️でゆったりと休憩しませんか？", "手作りスイーツとドリンクを提供する、落ち着いた空間のカフェです。", "images/class_1_2.jpg", "食べる"],
+    "1-3": ["縁日屋台", "縁日風屋台！射的やヨーヨー釣りもあります。", "日本の伝統的な縁日を再現した屋台で、楽しいゲームや景品が盛りだくさん。", "images/class_3_1.jpg", "遊ぶ"],
     "図書室": ["武将フェア", "武将フェア開催！ゆかりの文書を辿ろう。", "戦国武将に関する書籍や展示を集めたフェア。解説パネルも充実。", "images/class_3_1.jpg", "見る"],
     "音楽室": ["音楽フェス", "軽音楽部による音楽フェス！熱く盛りあがろう。", "校内バンドやゲストが出演する音楽イベント。手拍子・声援大歓迎！", "images/class_3_1.jpg", "見る"],
     "図工室": ["ものづくり体験", "廃材を使った日曜大工、フライパン製作", "工具を使って本格的なDIYが体験できます。お土産に持ち帰り可能。", "images/class_3_1.jpg", "遊ぶ"],
@@ -128,26 +132,32 @@ event_project = {
     "閉会式": ["3日目", "15:00〜 体育館", "文化祭の締めくくり", "表彰式・感謝の挨拶・全体写真撮影など、文化祭のフィナーレです。", "images/event_sport.jpg"]
 }
 
+# 9（2） 最初からメイン画面を表示させる
 # 3 後でセッション状態の初期化
 if 'logged_in' not in st.session_state:
-    st.session_state.logged_in = False
+    # 9（２）session_stateのlogged_inを最初からTrueにしておく
+    # logged_inがFalse→ログイン画面、True→メイン画面 になるため
+    st.session_state.logged_in = True
 
 # 以下、画面を作成
 # ログイン画面
 def login():
     st.title("🎌 文化祭案内アプリ")
     st.subheader("ログインしてください")
-    username = st.text_input("ユーザー名")
-    password = st.text_input("パスワード", type="password")
 
+    # 9（１） ログイン用の入力欄をコメントアウト
+    # username = st.text_input("ユーザー名")
+    # password = st.text_input("パスワード", type="password")
+
+    # 9（１） ログインボタンを押したら、判定を行わずに次の画面に遷移させる（該当箇所をコメントアウト）
     # 3 後でログイン機能に変更
     if st.button("ログイン"):
-        if username in users and users[username] == password:
+        # 9（1）if username in users and users[username] == password:
             st.session_state.logged_in = True
             st.session_state.page = "main"  # ✅ メインページへ遷移
             st.rerun()  # ✅ ここで画面再描画（ログイン画面を即消す）
-        else:
-            st.error("ユーザー名またはパスワードが間違っています。")
+        # else:
+            # st.error("ユーザー名またはパスワードが間違っています。")
 
 
 # メイン画面
@@ -187,9 +197,10 @@ def menu_page():
         st.session_state.page = "message"# 3 押したら画面遷移する処理に後で変更
         st.rerun()
     
-    if st.button("🗳 投票結果"):
-        st.session_state.page = "vote_result"# 3 押したら画面遷移する処理に後で変更
-        st.rerun()
+    # 9（２） 投票結果へ遷移させるためのボタンをコメントアウトして、表示させないようにする
+    # if st.button("🗳 投票結果"):
+    #     st.session_state.page = "vote_result"# 3 押したら画面遷移する処理に後で変更
+    #     st.rerun()
 
 # メッセージページ
 def message_page():
@@ -531,14 +542,16 @@ def sidebar():
     if st.sidebar.button("イベント一覧"):
         st.session_state.page = "event_list"# 3 後でイベント一覧画像に遷移する処理に変更
         st.rerun()
-    if st.sidebar.button("投票結果"):
-        st.session_state.page = "vote_result"# 3 後で投票結果画像に遷移する処理に変更
-        st.rerun()
+    # 9（３） メニューバーの投票結果ボタンを削除
+    # if st.sidebar.button("投票結果"):
+    #     st.session_state.page = "vote_result"# 3 後で投票結果画像に遷移する処理に変更
+    #     st.rerun()
 
-    if st.sidebar.button("ログアウト"):
-        st.session_state.logged_in = False # 3 後でログアウトする処理に変更
-        st.session_state.page = "main"
-        st.rerun()
+    # 9（２） ログアウトボタンを削除する
+    # if st.sidebar.button("ログアウト"):
+    #     st.session_state.logged_in = False # 3 後でログアウトする処理に変更
+    #     st.session_state.page = "main"
+    #     st.rerun()
 
 # 3 後で画面遷移のためのmain()メソッどを作成
 def main():
