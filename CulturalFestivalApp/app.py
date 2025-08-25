@@ -216,9 +216,9 @@ def map_page():
     # 地図の選択
     map_options = {
         "学校全体図": "images/学校全体図.jpg",
-        "校舎全体": "images/校舎全体.jpg",
-        "第１・３校舎": "images/第１・３校舎.jpg",
-        "第２校舎": "images/第２校舎 - 4.jpg",
+        "校舎全体": "images/校舎全体図.jpg",
+        "第１・３校舎": "images/第１、３校舎.jpg",
+        "第２校舎": "images/第２校舎.jpg",
         "模擬店": "images/模擬店.jpg"
     }
     selected_map = st.radio("地図を選んでください", list(map_options.keys()), horizontal=True)
