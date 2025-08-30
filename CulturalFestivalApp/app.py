@@ -291,9 +291,7 @@ def menu_page():
 
 #テーマ制についての説明ページ
 def theme_page():    
-    st.image("images/茶道部.png"", caption="今年のテーマ『世界』", use_container_width=True)
-
-    theme_description = """
+   
     <p style="text-align: justify; line-height: 1.8; font-size:16px;">
     各クラスはこれらのテーマに沿った企画を考え、準備を進めてきました。<br>
     ぜひ、各フロアを巡りながら、世界の様々な文化や雰囲気を感じ取ってください。<br><br>
