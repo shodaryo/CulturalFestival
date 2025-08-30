@@ -276,9 +276,6 @@ def menu_page():
         st.session_state.page = "map"# 3 押したら画面遷移する処理に後で変更
         st.rerun()
 
-    if st.button("🌏 テーマ制とは？"):
-        st.session_state.page = "theme"# 3 押したら画面遷移する処理に後で変更
-        st.rerun()
     
     if st.button("🎉 メッセージページ"):
         st.session_state.page = "message"# 3 押したら画面遷移する処理に後で変更
@@ -289,17 +286,6 @@ def menu_page():
     #     st.session_state.page = "vote_result"# 3 押したら画面遷移する処理に後で変更
     #     st.rerun()
 
-#テーマ制についての説明ページ
-def theme_page():    
-   
-    <p style="text-align: justify; line-height: 1.8; font-size:16px;">
-    各クラスはこれらのテーマに沿った企画を考え、準備を進めてきました。<br>
-    ぜひ、各フロアを巡りながら、世界の様々な文化や雰囲気を感じ取ってください。<br><br>
-    また、各クラス企画の詳細情報は「クラス企画一覧」からご覧いただけます。<br>
-    </p>
-    """
-
-    st.markdown(theme_description, unsafe_allow_html=True)
 
 # メッセージページ
 def message_page():
@@ -724,9 +710,6 @@ def sidebar():
     if st.sidebar.button("メニュー一覧"):
         st.session_state.page = "menu"# 3 後でメニュー一覧画像に遷移する処理に変更
         st.rerun()
-    if st.sidebar.button("テーマ制とは"):
-        st.session_state.page = "theme"# 3 後でイベント一覧画像に遷移する処理に変更
-        st.rerun()
     if st.sidebar.button("来場メッセージ"):
         st.session_state.page = "message"# 3 後で来場メッセージ画像に遷移する処理に変更
         st.rerun()
@@ -770,8 +753,6 @@ def main():
         main_page()
     elif st.session_state.page == "menu":
         menu_page()
-    elif st.session_state.page == "theme":
-        theme_page()
     elif st.session_state.page == "message":
         message_page()
     elif st.session_state.page == "map":
