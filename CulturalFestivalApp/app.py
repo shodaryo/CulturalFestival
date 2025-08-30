@@ -307,7 +307,7 @@ def theme_page():
 # メッセージページ
 def message_page():
     st.title("🎉 来場者へのメッセージ")
-      st.markdown(
+    st.markdown(
       """
       <style>
       .header{
