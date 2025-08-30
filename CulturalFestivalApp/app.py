@@ -291,7 +291,9 @@ def menu_page():
 
 #テーマ制についての説明ページ
 def theme_page():    
-    st.image("images/1-12.png", caption="今年のテーマ『世界』", use_container_width=True)
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    image_path = os.path.join(current_dir, "images/テーマ.PNG")
+    st.image(image_path, caption="今年のテーマ『世界』", use_container_width=True)
     
     theme_description = """
     <p style="text-align: justify; line-height: 1.8; font-size:16px;">
