@@ -293,16 +293,6 @@ def menu_page():
 def theme_page():    
     st.image("images/1-12.png", caption="今年のテーマ『世界』", use_container_width=True)
 
-    theme_description = """
-    <p style="text-align: justify; line-height: 1.8; font-size:16px;">
-    各クラスはこれらのテーマに沿った企画を考え、準備を進めてきました。<br>
-    ぜひ、各フロアを巡りながら、世界の様々な文化や雰囲気を感じ取ってください。<br><br>
-    また、各クラス企画の詳細情報は「クラス企画一覧」からご覧いただけます。<br>
-    </p>
-    """
-
-    st.markdown(theme_description, unsafe_allow_html=True)
-
 
 # メッセージページ
 def message_page():
