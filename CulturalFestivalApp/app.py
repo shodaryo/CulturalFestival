@@ -741,12 +741,6 @@ def class_vote_result_page():
 # サイドバー（メニュー）
 def sidebar():
     st.sidebar.title("📌 メニュー")
-    if st.sidebar.button("メイン画面"):
-        st.session_state.page = "main"# 3 後でメイン画像に遷移する処理に変更
-        st.rerun()
-    if st.sidebar.button("メニュー一覧"):
-        st.session_state.page = "menu"# 3 後でメニュー一覧画像に遷移する処理に変更
-        st.rerun()
     if st.sidebar.button("テーマ制とは"):
         st.session_state.page = "theme"# 3 後でイベント一覧画像に遷移する処理に変更
         st.rerun()
