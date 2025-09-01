@@ -741,20 +741,20 @@ def class_vote_result_page():
 # サイドバー（メニュー）
 def sidebar():
     st.sidebar.title("📌 メニュー")
-    if st.sidebar.button("テーマ制とは"):
-        st.session_state.page = "theme"# 3 後でイベント一覧画像に遷移する処理に変更
-        st.rerun()
-    if st.sidebar.button("来場メッセージ"):
-        st.session_state.page = "message"# 3 後で来場メッセージ画像に遷移する処理に変更
-        st.rerun()
-    if st.sidebar.button("校内マップ"):
-        st.session_state.page = "map"# 3 後で校内マップ画像に遷移する処理に変更
-        st.rerun()
-    if st.sidebar.button("クラス企画一覧"):
+    if st.sidebar.button("🎪クラス企画一覧"):
         st.session_state.page = "class_list"# 3 後でクラス企画一覧画像に遷移する処理に変更
         st.rerun()
-    if st.sidebar.button("イベント一覧"):
+    if st.sidebar.button("📅イベント一覧"):
         st.session_state.page = "event_list"# 3 後でイベント一覧画像に遷移する処理に変更
+        st.rerun()        
+    if st.sidebar.button("🏫校内マップ"):
+        st.session_state.page = "map"# 3 後で校内マップ画像に遷移する処理に変更
+        st.rerun()        
+    if st.sidebar.button("🌏テーマ制とは"):
+        st.session_state.page = "theme"# 3 後でイベント一覧画像に遷移する処理に変更
+        st.rerun()
+    if st.sidebar.button("🎉来場メッセージ"):
+        st.session_state.page = "message"# 3 後で来場メッセージ画像に遷移する処理に変更
         st.rerun()
     # 9（３） メニューバーの投票結果ボタンを削除
     # if st.sidebar.button("投票結果"):
