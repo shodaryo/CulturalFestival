@@ -709,7 +709,7 @@ def event_detail_page():
     
     # 5 後で企画一覧ページで選んだ企画の詳細を表示
     name = st.session_state.get("selected_event", "不明なイベント")
-    event_day, time_place, _, detail, image_path = event_project.get(name, ["日程不明", "時間不明", "", "詳細情報はありません。", None])
+    event_day, time_place, _, detail, image_path, _ = event_project.get(name, ["日程不明", "時間不明", "", "詳細情報はありません。", None])
     image_path = os.path.join(current_dir, image_path)
     st.subheader(name)
     st.write(f"🗓 {event_day}　🕒 {time_place}")
