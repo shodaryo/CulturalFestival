@@ -368,7 +368,7 @@ def map_page():
     elif selected_map == "第１・３校舎":
         available_categories = ["中学1年","中学2年","中学3年","高校1年・第1校舎","高校2年・第1校舎","高校3年","第1,3校舎部活動・その他"]
     elif selected_map == "第２校舎":
-        available_categories = ["高校1年・第2校舎","高校2年・第2校舎","高校3年・第2校舎","第2校舎部活動・その他"]
+        available_categories = ["高校1年・第2校舎","高校2年・第2校舎", "第2校舎部活動・その他"]
     elif selected_map == "学校全体図":	
         available_categories = ["金券","受付","生徒会館"]
     elif selected_map == "模擬店":
