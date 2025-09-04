@@ -722,7 +722,7 @@ def event_detail_page():
 
     if image_path:
         st.image(image_path, caption=f"{name}の展示写真", use_container_width=True)
-        st.image(eplace_path, caption=f"{name}の位置", use_container_width=True)
+        st.image(eplace_path, caption=f"{name}の開催場所", use_container_width=True)
 
     if st.button("← イベント一覧に戻る"):
         st.session_state.page = "event_list"
