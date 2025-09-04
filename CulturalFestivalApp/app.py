@@ -721,8 +721,8 @@ def event_detail_page():
     st.write(detail)
 
     if image_path:
-        st.image(image_path, caption=f"{name}", use_container_width=True)
-        st.image(eplace_path, caption=f"{name}", use_container_width=True)
+        st.image(image_path, caption=f"{name}の展示写真", use_container_width=True)
+        st.image(eplace_path, caption=f"{name}の位置", use_container_width=True)
 
     if st.button("← イベント一覧に戻る"):
         st.session_state.page = "event_list"
